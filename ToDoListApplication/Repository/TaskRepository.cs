@@ -64,6 +64,11 @@ namespace ToDoListApplication.Repository
             return _tasks.Select(task => task.Title).ToList();
         }
 
+        internal ToDoTask? GetById(Guid id)
+        {
+            return _tasks.FirstOrDefault(x => x.Id == id);
+        }
+
         internal List<ToDoTask> GetByUserId(Guid userId)
         {
             return _tasks.Where(x => x.UserId == userId).ToList();
@@ -72,6 +77,31 @@ namespace ToDoListApplication.Repository
         internal bool HasAny(Guid userId)
         {
             return _tasks.Where(x => x.Id == userId).Any();
+        }
+
+        internal void Update(ToDoTask task)
+        {
+            ToDoTask? existingTask = this.GetById(task.Id);
+            if (existingTask is null)
+            {
+                return;
+            }
+
+            existingTask.Title = task.Title;
+            existingTask.Description = task.Description;
+            existingTask.Date = task.Date;
+
+        }
+
+        internal void Delete(Guid id)
+        {
+            ToDoTask? task = this.GetById(id);
+            if (task is null)
+            {
+                return;
+            }
+
+            _tasks.Remove(task);
         }
     }
 }

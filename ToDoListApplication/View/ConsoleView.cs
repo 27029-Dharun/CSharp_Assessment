@@ -79,7 +79,7 @@ namespace ToDoListApplication.View
             string input = this.GetValidatedInput(
                 prompt,
                 Validator.IsValidDate,
-                $"Please enter a valid description with more than 10 characters and less than 50.");
+                $"Please enter a valid date.");
             return DateTime.Parse(input);
         }
 
@@ -123,6 +123,19 @@ namespace ToDoListApplication.View
             }
 
             return input;
+        }
+
+        internal int GetIndex(string v)
+        {
+            string input = GetString("Enter the index to select the task: ");
+
+            int index;
+            while (!int.TryParse(input, out index))
+            {
+                Console.WriteLine("Enter a valid integer");
+                input = GetString("Enter the index to select the task: ");
+            }
+            return index - 1;
         }
     }
 }

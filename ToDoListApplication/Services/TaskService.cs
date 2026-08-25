@@ -35,7 +35,7 @@ namespace ToDoListApplication.Services
                 return false;
             }
 
-            if (DateTime.Today < targetDate)
+            if (DateTime.Today > targetDate)
             {
                 return false;
             }
@@ -86,9 +86,25 @@ namespace ToDoListApplication.Services
             return this._taskRepository.GetByUserId(userId);
         }
 
+        internal void DeleteTask(Guid id)
+        {
+            this._taskRepository.Delete(id);
+        }
+
+        internal void GetDashboard()
+        {
+            throw new NotImplementedException();
+        }
+
         internal bool GetTaskExist(Guid userId)
         {
             return this._taskRepository.HasAny(userId);
+        }
+
+        internal bool UpdateTask(ToDoTask task)
+        {
+            this._taskRepository.Update(task);
+            return true;
         }
 
         private void AddTask(Guid userId, string title, string description, DateTime taskDate)
@@ -97,6 +113,5 @@ namespace ToDoListApplication.Services
 
             this._taskRepository.Add(task);
         }
-
     }
 }

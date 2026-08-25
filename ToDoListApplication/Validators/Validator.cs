@@ -46,7 +46,7 @@ namespace ToDoListApplication.Validators
                 return false;
             }
 
-            if (validDate > DateTime.Today)
+            if (validDate < DateTime.Today)
             {
                 return false;
             }
