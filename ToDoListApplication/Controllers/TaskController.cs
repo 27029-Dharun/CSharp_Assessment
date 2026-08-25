@@ -90,7 +90,7 @@ namespace ToDoListApplication.Controllers
 
         private void HandleView(Guid userId)
         {
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+            List<ToDoTask> tasks = this._taskService.GetCalendar(userId);
             if (tasks.Any())
             {
 
@@ -104,7 +104,7 @@ namespace ToDoListApplication.Controllers
         private void HandleUpdateTask(Guid userId)
         {
 
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+            List<ToDoTask> tasks = this._taskService.GetCalendar(userId);
             if (!tasks.Any())
             {
                 this._view.PrintInfo("No transaction available");
@@ -152,7 +152,7 @@ namespace ToDoListApplication.Controllers
 
         private void HandleRemoveTask(Guid userId)
         {
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+            List<ToDoTask> tasks = this._taskService.GetCalendar(userId);
 
             if (!tasks.Any())
             {
@@ -177,7 +177,7 @@ namespace ToDoListApplication.Controllers
 
         private void HandleViewCalendar(Guid userId)
         {
-            List<ToDoTask> task = this._taskService.ViewUserTask(userId);
+            List<ToDoTask> task = this._taskService.GetCalendar(userId);
 
             this._view.PrintTaskTable(task);
         }
@@ -187,13 +187,19 @@ namespace ToDoListApplication.Controllers
             this._view.PrintInfo($"Welcome {userName}");
             List<ToDoTask> tasks = this._taskService.GetRecentTask(userId);
 
-            if (tasks.Any())
+            if (!tasks.Any())
             {
                 this._view.PrintInfo("Add new tasks to continue ..");
+                return;
             }
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < tasks.Count; i++)
             {
+                if (i == 2)
+                {
+                    break;
+                }
+
                 this._view.PrintTask(tasks[i]);
             }
         }

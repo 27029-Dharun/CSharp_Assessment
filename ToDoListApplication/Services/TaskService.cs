@@ -81,9 +81,10 @@ namespace ToDoListApplication.Services
         /// </summary>
         /// <param name="userId">Unique identifier of user</param>
         /// <returns>A list of task that is belonging to the user</returns>
-        public List<ToDoTask> ViewUserTask(Guid userId)
+        public List<ToDoTask> GetCalendar(Guid userId)
         {
-            return this._taskRepository.GetByUserId(userId);
+            List<ToDoTask> tasks = this._taskRepository.GetByUserId(userId);
+            return tasks;
         }
 
         internal void DeleteTask(Guid id)

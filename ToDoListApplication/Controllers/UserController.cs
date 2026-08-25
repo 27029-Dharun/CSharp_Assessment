@@ -40,7 +40,6 @@ namespace ToDoListApplication.Controllers
 
                     case AuthenticationOption.LogIn:
                         (Guid id, string name) = this.HandleLogIn();
-                        Console.WriteLine(id);
                         if (id != Guid.Empty)
                         {
                             return (id, name);

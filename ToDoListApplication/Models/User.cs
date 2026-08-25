@@ -7,7 +7,6 @@
     {
         public User()
         {
-
         }
 
         /// <summary>

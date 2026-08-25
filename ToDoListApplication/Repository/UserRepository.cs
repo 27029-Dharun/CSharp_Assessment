@@ -45,7 +45,7 @@ namespace ToDoListApplication.Repository
         {
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, string.Empty);
+                File.WriteAllText(filePath, "[]");
                 return new List<User>();
             }
 

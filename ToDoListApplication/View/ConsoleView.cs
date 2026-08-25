@@ -61,7 +61,7 @@ namespace ToDoListApplication.View
         {
             string input = this.GetValidatedInput(
                 v,
-                Validator.IsValidDescription,
+                Validator.IsValidName,
                 $"Please enter a title with only alphabets.");
             return input;
         }
@@ -77,7 +77,7 @@ namespace ToDoListApplication.View
             string input = this.GetValidatedInput(
                 prompt,
                 Validator.IsValidDescription,
-                $"Please enter a valid description with more than 10 characters and less than 50.");
+                $"Please enter a valid description with more than 10 characters and less than 30.");
             return input;
         }
 
@@ -108,7 +108,7 @@ namespace ToDoListApplication.View
             Console.WriteLine($"S.No, Title, Description, Date");
             foreach (ToDoTask task in tasks)
             {
-                Console.WriteLine($"{i++}, {task.Title}, {task.Description}, {task.Date}");
+                Console.WriteLine($"{i++}. {task.Title}, {task.Description}, {task.Date}");
             }
         }
 

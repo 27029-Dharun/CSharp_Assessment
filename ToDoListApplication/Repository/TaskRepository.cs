@@ -39,7 +39,7 @@ namespace ToDoListApplication.Repository
         {
             if (!File.Exists(filePath))
             {
-                File.WriteAllText(filePath, string.Empty);
+                File.WriteAllText(filePath, "[]");
                 return new List<ToDoTask>();
             }
 
@@ -89,6 +89,7 @@ namespace ToDoListApplication.Repository
             existingTask.Title = task.Title;
             existingTask.Description = task.Description;
             existingTask.Date = task.Date;
+            WriteAll(_userFilePath, _tasks);
 
         }
 
@@ -101,6 +102,7 @@ namespace ToDoListApplication.Repository
             }
 
             _tasks.Remove(task);
+            WriteAll(_userFilePath, _tasks);
         }
     }
 }
