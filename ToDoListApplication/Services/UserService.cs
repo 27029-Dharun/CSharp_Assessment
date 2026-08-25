@@ -13,7 +13,7 @@ namespace ToDoListApplication.Services
         private readonly UserRepository _userRepository;
 
         /// <summary>
-        /// Initilize the object 
+        /// Initialize the object 
         /// </summary>
         /// <param name="repository">Instance of repository</param>
         public UserService(UserRepository repository)
@@ -46,20 +46,20 @@ namespace ToDoListApplication.Services
         /// <param name="username">user name</param>
         /// <param name="password">Password</param>
         /// <returns>Guid of the user if logged in</returns>
-        public Guid ValidateLogIn(string username, string password)
+        public (Guid, string) ValidateLogIn(string username, string password)
         {
             User? user = this._userRepository.GetByUserName(username);
             if (user is null)
             {
-                return Guid.Empty;
+                return (Guid.Empty, string.Empty);
             }
 
             if (user.Password != password)
             {
-                return Guid.Empty;
+                return (Guid.Empty, string.Empty);
             }
 
-            return user.Id;
+            return (user.Id, user.UserName);
         }
     }
 }

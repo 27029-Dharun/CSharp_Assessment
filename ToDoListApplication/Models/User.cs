@@ -20,7 +20,7 @@
         /// <summary>
         /// Unique identifier
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; }
 
         /// <summary>
         /// User name 

@@ -27,7 +27,7 @@ namespace ToDoListApplication.Controllers
         /// Authenticate the user and send the unique identifier of the Id
         /// </summary>
         /// <returns></returns>
-        public Guid Authenticate()
+        public (Guid, string) Authenticate()
         {
             while (true)
             {
@@ -39,16 +39,16 @@ namespace ToDoListApplication.Controllers
                         break;
 
                     case AuthenticationOption.LogIn:
-                        Guid id = this.HandleLogIn();
+                        (Guid id, string name) = this.HandleLogIn();
                         Console.WriteLine(id);
                         if (id != Guid.Empty)
                         {
-                            return id;
+                            return (id, name);
                         }
                         break;
 
                     case AuthenticationOption.Exit:
-                        return Guid.Empty;
+                        return (Guid.Empty, string.Empty);
                 }
                 this._view.PauseAndContinue();
             }
@@ -69,7 +69,7 @@ namespace ToDoListApplication.Controllers
             this._view.PrintInfo("Failed to create an account");
         }
 
-        private Guid HandleLogIn()
+        private (Guid, string) HandleLogIn()
         {
             string name = this._view.GetName("Enter the name of the user: ");
             string password = this._view.GetPassword("Enter the password for the account: ");

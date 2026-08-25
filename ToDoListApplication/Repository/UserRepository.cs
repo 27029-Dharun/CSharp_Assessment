@@ -1,4 +1,5 @@
-﻿using ToDoListApplication.Models;
+﻿using System.Text.Json;
+using ToDoListApplication.Models;
 
 namespace ToDoListApplication.Repository
 {
@@ -9,6 +10,10 @@ namespace ToDoListApplication.Repository
     {
         private readonly string _userFilePath;
         private readonly List<User> _users;
+        private static JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
 
         /// <summary>
         /// Initialize the object
@@ -17,7 +22,42 @@ namespace ToDoListApplication.Repository
         public UserRepository(string path)
         {
             _userFilePath = path;
-            _users = JsonHelper.ReadAll<User>(_userFilePath);
+            _users = LoadAll(_userFilePath);
+        }
+
+        /// <summary>
+        /// Writes all the task to the file
+        /// </summary>
+        /// <param name="filePath">The path of the file where the task are stored</param>
+        /// <param name="list">List of the tasks that are to be added</param>
+        public static void WriteAll(string filePath, List<User> list)
+        {
+            string json = JsonSerializer.Serialize(list, options);
+            File.WriteAllText(filePath, json);
+        }
+
+        /// <summary>
+        /// Loads all the content and loads into the file
+        /// </summary>
+        /// <param name="filePath">Path of the file from which the contents are loaded </param>
+        /// <returns>A list of tasks that are stored in the file</returns>
+        public static List<User> LoadAll(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                File.WriteAllText(filePath, string.Empty);
+                return new List<User>();
+            }
+
+            string text = File.ReadAllText(filePath);
+            if (text is null)
+            {
+                return new List<User>();
+            }
+
+            List<User> tasks = JsonSerializer.Deserialize<List<User>>(text, options) ?? new List<User>(); ;
+
+            return tasks;
         }
 
         /// <summary>
@@ -27,7 +67,7 @@ namespace ToDoListApplication.Repository
         public void Add(User user)
         {
             _users.Add(user);
-            JsonHelper.WriteAll(_userFilePath, _users);
+            WriteAll(_userFilePath, _users);
         }
 
         /// <summary>

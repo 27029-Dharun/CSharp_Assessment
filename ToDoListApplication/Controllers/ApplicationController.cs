@@ -2,11 +2,15 @@
 {
     internal class ApplicationController
     {
-        private readonly UserController _userController;
+
         private Guid _userId;
-        public ApplicationController(UserController controller)
+        private string _userName;
+        private readonly UserController _userController;
+        private readonly TaskController _taskController;
+        public ApplicationController(UserController userController, TaskController taskController)
         {
-            _userController = controller;
+            _userController = userController;
+            _taskController = taskController;
         }
 
         /// <summary>
@@ -16,14 +20,14 @@
         {
             while (true)
             {
-                _userId = this._userController.Authenticate();
+                (_userId, _userName) = this._userController.Authenticate();
 
                 if (_userId == Guid.Empty)
                 {
                     return;
                 }
 
-                Console.WriteLine("Logged in successfully");
+                this._taskController.Dashboard(_userId, _userName);
             }
         }
     }

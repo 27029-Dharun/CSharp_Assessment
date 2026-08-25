@@ -21,7 +21,11 @@ namespace ToDoListApplication
             UserService userService = new UserService(userRepository);
             UserController userController = new UserController(userService, view);
 
-            ApplicationController controller = new ApplicationController(userController);
+            TaskRepository taskRepository = new TaskRepository("Task.json");
+            TaskService taskService = new TaskService(taskRepository);
+            TaskController taskController = new TaskController(taskService, view);
+
+            ApplicationController controller = new ApplicationController(userController, taskController);
             controller.Start();
         }
     }
