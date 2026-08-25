@@ -8,11 +8,20 @@ namespace ToDoListApplication.Repository
     {
         private readonly string _userFilePath;
         private readonly List<ToDoTask> _tasks;
+
+        /// <summary>
+        /// T
+        /// </summary>
+        /// <param name="path"></param>
         public TaskRepository(string path)
         {
             _userFilePath = path;
             _tasks = LoadAll(_userFilePath);
         }
+
+        /// <summary>
+        /// Option to read and write
+        /// </summary>
         private static readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
             WriteIndented = true,
@@ -57,27 +66,50 @@ namespace ToDoListApplication.Repository
             return tasks;
         }
 
+        /// <summary>
+        /// Add new task
+        /// </summary>
+        /// <param name="task"></param>
         public void Add(ToDoTask task)
         {
             _tasks.Add(task);
             WriteAll(_userFilePath, _tasks);
         }
 
+        /// <summary>
+        /// Get all the task
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         internal List<string> GetAllTaskTitle(Guid userId)
         {
             return _tasks.Select(task => task.Title).ToList();
         }
 
+        /// <summary>
+        /// Get the task by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         internal ToDoTask? GetById(Guid id)
         {
             return _tasks.FirstOrDefault(x => x.Id == id);
         }
 
+        /// <summary>
+        /// Get the user specific task
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         internal List<ToDoTask> GetByUserId(Guid userId)
         {
             return _tasks.Where(x => x.UserId == userId).ToList();
         }
 
+        /// <summary>
+        /// Update the task
+        /// </summary>
+        /// <param name="task"></param>
         internal void Update(ToDoTask task)
         {
             ToDoTask? existingTask = this.GetById(task.Id);
@@ -93,6 +125,11 @@ namespace ToDoListApplication.Repository
 
         }
 
+
+        /// <summary>
+        /// delete a specific task
+        /// </summary>
+        /// <param name="id">Unique identifier for the task</param>
         internal void Delete(Guid id)
         {
             ToDoTask? task = this.GetById(id);

@@ -96,7 +96,7 @@ namespace ToDoListApplication.View
             while (!(option >= 1 && option <= 4))
             {
                 this.PrintInfo("Please enter a valid integer");
-                option = this.GetOption("1. Daily\n2. weekly\n3. Monthly\n4. Yearly");
+                option = this.GetOption("1. Daily\n2. weekly\n3. Monthly\n4. Yearly\nEnter the option: ");
             }
 
             return (Recurrence)option;

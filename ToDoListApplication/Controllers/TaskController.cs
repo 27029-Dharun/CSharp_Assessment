@@ -5,17 +5,30 @@ using ToDoListApplication.View;
 
 namespace ToDoListApplication.Controllers
 {
+    /// <summary>
+    /// controller
+    /// </summary>
     internal class TaskController
     {
         private readonly TaskService _taskService;
         private readonly ConsoleView _view;
 
+        /// <summary>
+        /// Initialize the object
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="view"></param>
         public TaskController(TaskService service, ConsoleView view)
         {
             this._view = view;
             this._taskService = service;
         }
 
+        /// <summary>
+        /// Dashboard
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="userName"></param>
         public void Dashboard(Guid userId, string userName)
         {
             while (true)
