@@ -4,8 +4,12 @@ using ToDoListApplication.Validators;
 
 namespace ToDoListApplication.View
 {
+    /// <summary>
+    /// Contains all the view operations
+    /// </summary>
     internal class ConsoleView
     {
+        //Get a valid string from the user
         internal string GetString(string message)
         {
             Console.Write(message);
@@ -13,6 +17,11 @@ namespace ToDoListApplication.View
             return input;
         }
 
+        /// <summary>
+        /// Get the name of the user
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <returns></returns>
         internal string GetName(string message)
         {
             string input = this.GetValidatedInput(
@@ -22,6 +31,11 @@ namespace ToDoListApplication.View
             return input;
         }
 
+        /// <summary>
+        /// Get option 
+        /// </summary>
+        /// <param name="message">Message to be displayed</param>
+        /// <returns></returns>
         internal int GetOption(string message)
         {
             string name = GetString(message);
@@ -36,6 +50,11 @@ namespace ToDoListApplication.View
             return value;
         }
 
+        /// <summary>
+        /// Get the password
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         internal string GetPassword(string message)
         {
             string input = this.GetValidatedInput(
@@ -45,11 +64,18 @@ namespace ToDoListApplication.View
             return input;
         }
 
+        /// <summary>
+        /// Prints the info in console
+        /// </summary>
+        /// <param name="message"></param>
         internal void PrintInfo(string message)
         {
             Console.WriteLine(message);
         }
 
+        /// <summary>
+        /// Pause the console and clear
+        /// </summary>
         internal void PauseAndContinue()
         {
             Console.WriteLine("Press a key to continue ...");
@@ -57,6 +83,11 @@ namespace ToDoListApplication.View
             Console.Clear();
         }
 
+        /// <summary>
+        /// Get the title of the task
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         internal string GetTitle(string v)
         {
             string input = this.GetValidatedInput(
@@ -81,6 +112,11 @@ namespace ToDoListApplication.View
             return input;
         }
 
+        /// <summary>
+        /// Get the target date
+        /// </summary>
+        /// <param name="prompt">Prompt </param>
+        /// <returns>The target date</returns>
         internal DateTime GetTargetDate(string prompt)
         {
             string input = this.GetValidatedInput(
@@ -90,6 +126,11 @@ namespace ToDoListApplication.View
             return DateTime.Parse(input);
         }
 
+        /// <summary>
+        /// get the recurrence option
+        /// </summary>
+        /// <param name="v">Message to be printed</param>
+        /// <returns>get frequency</returns>
         internal Recurrence GetRecurrence(string v)
         {
             int option = this.GetOption("1. Daily\n2. weekly\n3. Monthly\n4. Yearly");
@@ -102,6 +143,10 @@ namespace ToDoListApplication.View
             return (Recurrence)option;
         }
 
+        /// <summary>
+        /// Prints the task table
+        /// </summary>
+        /// <param name="tasks"></param>
         internal void PrintTaskTable(List<ToDoTask> tasks)
         {
             int i = 1;
@@ -112,6 +157,14 @@ namespace ToDoListApplication.View
             }
         }
 
+        /// <summary>
+        /// get the valid input from user
+        /// </summary>
+        /// <param name="prompt">Prompt</param>
+        /// <param name="isValidField">Field to be validated</param>
+        /// <param name="errorMessage">Error message</param>
+        /// <returns>A valid string value</returns>
+        /// <exception cref="InvalidDataException">When user exceeds the tries</exception>
         private string GetValidatedInput(string prompt, Func<string, bool> isValidField, string errorMessage)
         {
             int tries = 3;
@@ -132,6 +185,11 @@ namespace ToDoListApplication.View
             return input;
         }
 
+        /// <summary>
+        /// Get the index of the task
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns></returns>
         internal int GetIndex(string v)
         {
             string input = GetString("Enter the index to select the task: ");
@@ -145,6 +203,10 @@ namespace ToDoListApplication.View
             return index - 1;
         }
 
+        /// <summary>
+        /// Print the task for dashboard
+        /// </summary>
+        /// <param name="task">task to be printed</param>
         internal void PrintTask(ToDoTask task)
         {
             Console.WriteLine($"{task.Title}, {task.Description}, {task.Date.ToShortDateString()}");

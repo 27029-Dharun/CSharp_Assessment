@@ -25,7 +25,7 @@ namespace ToDoListApplication.Validators
         }
 
         /// <summary>
-        /// 
+        /// Is valid description
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
@@ -59,6 +59,11 @@ namespace ToDoListApplication.Validators
             return true;
         }
 
+        /// <summary>
+        /// Get a valid password
+        /// </summary>
+        /// <param name="password">A password to be validated</param>
+        /// <returns></returns>
         internal static bool IsValidPassword(string password)
         {
             if (password is null || password.Length < 8)
@@ -69,6 +74,11 @@ namespace ToDoListApplication.Validators
             return true;
         }
 
+        /// <summary>
+        /// Checks if the name is valid
+        /// </summary>
+        /// <param name="name">NAme of the user</param>
+        /// <returns></returns>
         internal static bool IsValidName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
