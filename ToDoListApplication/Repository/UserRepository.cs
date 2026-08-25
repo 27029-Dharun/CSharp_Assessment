@@ -77,7 +77,17 @@ namespace ToDoListApplication.Repository
         /// <returns>A user object with the user name</returns>
         public User? GetByUserName(string userName)
         {
-            return _users.FirstOrDefault(x => x.UserName == userName);
+            return Copy(_users.FirstOrDefault(x => x.UserName == userName));
+        }
+
+        private User? Copy(User? user)
+        {
+            if (user is null)
+            {
+                return null;
+            }
+
+            return new User(user.Id, user.UserName, user.Password);
         }
 
         /// <summary>

@@ -108,7 +108,7 @@ namespace ToDoListApplication.View
             Console.WriteLine($"S.No, Title, Description, Date");
             foreach (ToDoTask task in tasks)
             {
-                Console.WriteLine($"{i++}. {task.Title}, {task.Description}, {task.Date}");
+                Console.WriteLine($"{i++}. {task.Title}, {task.Description}, {task.Date.ToShortDateString()}");
             }
         }
 
@@ -147,7 +147,7 @@ namespace ToDoListApplication.View
 
         internal void PrintTask(ToDoTask task)
         {
-            Console.WriteLine($"{task.Title}, {task.Description}, {task.Date}");
+            Console.WriteLine($"{task.Title}, {task.Description}, {task.Date.ToShortDateString()}");
         }
     }
 }

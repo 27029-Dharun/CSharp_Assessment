@@ -24,7 +24,7 @@
         /// <summary>
         /// Unique identifier
         /// </summary>
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// User name 

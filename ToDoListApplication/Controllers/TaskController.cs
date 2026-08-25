@@ -16,13 +16,12 @@ namespace ToDoListApplication.Controllers
             this._taskService = service;
         }
 
-        public Guid Dashboard(Guid userId, string userName)
+        public void Dashboard(Guid userId, string userName)
         {
             while (true)
             {
                 try
                 {
-
                     this.DisplayTask(userId, userName);
 
                     DashboardOption option = (DashboardOption)this._view.GetOption("1. Add new task\n" +
@@ -55,7 +54,7 @@ namespace ToDoListApplication.Controllers
                             break;
 
                         case DashboardOption.LogOut:
-                            return Guid.Empty;
+                            return;
 
                         default:
                             this._view.PrintInfo("Enter an valid option");
@@ -76,7 +75,7 @@ namespace ToDoListApplication.Controllers
         {
             string title = this._view.GetTitle("Enter the title of the task: ");
             string description = this._view.GetDescription("Enter the description: ");
-            DateTime date = this._view.GetTargetDate("Enter the date: ");
+            DateTime date = this._view.GetTargetDate("Enter the date in format (dd/MM/yyyy): ");
             Recurrence recurrence = this._view.GetRecurrence("Enter the recurrence period: ");
 
             if (this._taskService.AddRecurrenceTask(userId, title, description, date, recurrence))

@@ -31,25 +31,34 @@ namespace ToDoListApplication.Controllers
         {
             while (true)
             {
-                AuthenticationOption option = (AuthenticationOption)this._view.GetOption("1. Sign Up\n2. Log In\n3. Exit\n");
-                switch (option)
+                try
                 {
-                    case AuthenticationOption.SignUp:
-                        this.HandleSignUp();
-                        break;
 
-                    case AuthenticationOption.LogIn:
-                        (Guid id, string name) = this.HandleLogIn();
-                        if (id != Guid.Empty)
-                        {
-                            return (id, name);
-                        }
-                        break;
+                    AuthenticationOption option = (AuthenticationOption)this._view.GetOption("Welcome to Todo list application\n1. Sign Up\n2. Log In\n3. Exit\n");
+                    switch (option)
+                    {
+                        case AuthenticationOption.SignUp:
+                            this.HandleSignUp();
+                            break;
 
-                    case AuthenticationOption.Exit:
-                        return (Guid.Empty, string.Empty);
+                        case AuthenticationOption.LogIn:
+                            (Guid id, string name) = this.HandleLogIn();
+                            if (id != Guid.Empty)
+                            {
+                                return (id, name);
+                            }
+                            this._view.PrintInfo("Enter the valid username and password");
+                            break;
+
+                        case AuthenticationOption.Exit:
+                            return (Guid.Empty, string.Empty);
+                    }
+                    this._view.PauseAndContinue();
                 }
-                this._view.PauseAndContinue();
+                catch (Exception e)
+                {
+                    this._view.PrintInfo(e.Message);
+                }
             }
         }
 
@@ -58,6 +67,11 @@ namespace ToDoListApplication.Controllers
             string name = this._view.GetName("Enter the name of the user: ");
             string password = this._view.GetPassword("Enter the password for the account: ");
             string confirmPassword = this._view.GetPassword("Enter the password again to confirm: ");
+            if (password != confirmPassword)
+            {
+                this._view.PrintInfo("Confirm password not matched");
+                return;
+            }
 
             if (this._userService.AddUser(name, password))
             {
