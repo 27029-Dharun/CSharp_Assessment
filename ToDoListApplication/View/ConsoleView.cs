@@ -15,8 +15,11 @@ namespace ToDoListApplication.View
 
         internal string GetName(string message)
         {
-            string name = GetString(message);
-            return name;
+            string input = this.GetValidatedInput(
+               message,
+               Validator.IsValidName,
+               $"Please enter a name only alphabets.");
+            return input;
         }
 
         internal int GetOption(string message)
@@ -25,6 +28,7 @@ namespace ToDoListApplication.View
             int value;
             while (!int.TryParse(name, out value))
             {
+                Console.Clear();
                 Console.WriteLine("Please enter a valid input");
                 name = GetString(message);
             }
@@ -34,8 +38,11 @@ namespace ToDoListApplication.View
 
         internal string GetPassword(string message)
         {
-            string name = GetString(message);
-            return name;
+            string input = this.GetValidatedInput(
+                message,
+                Validator.IsValidPassword,
+                $"Please enter a password with atleast 8 digits.");
+            return input;
         }
 
         internal void PrintInfo(string message)
@@ -95,7 +102,7 @@ namespace ToDoListApplication.View
             return (Recurrence)option;
         }
 
-        internal void PrintTasks(List<ToDoTask> tasks)
+        internal void PrintTaskTable(List<ToDoTask> tasks)
         {
             int i = 1;
             Console.WriteLine($"S.No, Title, Description, Date");
@@ -136,6 +143,11 @@ namespace ToDoListApplication.View
                 input = GetString("Enter the index to select the task: ");
             }
             return index - 1;
+        }
+
+        internal void PrintTask(ToDoTask task)
+        {
+            Console.WriteLine($"{task.Title}, {task.Description}, {task.Date}");
         }
     }
 }

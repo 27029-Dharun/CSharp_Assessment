@@ -2,6 +2,11 @@
 {
     internal class ToDoTask
     {
+        public ToDoTask()
+        {
+
+        }
+
         public ToDoTask(Guid guid, Guid userId, string title, string description, DateTime taskDate)
         {
             Id = guid;

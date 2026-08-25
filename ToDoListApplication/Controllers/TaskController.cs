@@ -29,7 +29,8 @@ namespace ToDoListApplication.Controllers
                         "2. View all task\n" +
                         "3. Remove existing task\n" +
                         "4. Edit existing task\n" +
-                        "5. View calendar\n");
+                        "5. View calendar\n" +
+                        "6. LogOut\n");
 
                     switch (option)
                     {
@@ -89,28 +90,28 @@ namespace ToDoListApplication.Controllers
 
         private void HandleView(Guid userId)
         {
-            if (this._taskService.GetTaskExist(userId))
+            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+            if (tasks.Any())
             {
-                this._view.PrintInfo("No task available to view");
+
+                this._view.PrintTaskTable(tasks);
                 return;
             }
 
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
-
-            this._view.PrintTasks(tasks);
+            this._view.PrintInfo("No transaction available");
         }
 
         private void HandleUpdateTask(Guid userId)
         {
-            if (this._taskService.GetTaskExist(userId))
+
+            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+            if (!tasks.Any())
             {
-                this._view.PrintInfo("No task available to update");
+                this._view.PrintInfo("No transaction available");
                 return;
             }
 
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
-
-            this._view.PrintTasks(tasks);
+            this._view.PrintTaskTable(tasks);
 
             int index = this._view.GetIndex("Enter the index to edit: ");
             if (index >= 0 && index < tasks.Count)
@@ -151,15 +152,15 @@ namespace ToDoListApplication.Controllers
 
         private void HandleRemoveTask(Guid userId)
         {
-            if (this._taskService.GetTaskExist(userId))
+            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
+
+            if (!tasks.Any())
             {
-                this._view.PrintInfo("No task available to remove");
+                this._view.PrintInfo("No transaction available");
                 return;
             }
 
-            List<ToDoTask> tasks = this._taskService.ViewUserTask(userId);
-
-            this._view.PrintTasks(tasks);
+            this._view.PrintTaskTable(tasks);
 
             int index = this._view.GetIndex("Enter the index to edit: ");
             if (index >= 0 && index < tasks.Count)
@@ -178,12 +179,23 @@ namespace ToDoListApplication.Controllers
         {
             List<ToDoTask> task = this._taskService.ViewUserTask(userId);
 
-            this._view.PrintTasks(task);
+            this._view.PrintTaskTable(task);
         }
 
         private void DisplayTask(Guid userId, string userName)
         {
             this._view.PrintInfo($"Welcome {userName}");
+            List<ToDoTask> tasks = this._taskService.GetRecentTask(userId);
+
+            if (tasks.Any())
+            {
+                this._view.PrintInfo("Add new tasks to continue ..");
+            }
+
+            for (int i = 0; i < 2; i++)
+            {
+                this._view.PrintTask(tasks[i]);
+            }
         }
     }
 }

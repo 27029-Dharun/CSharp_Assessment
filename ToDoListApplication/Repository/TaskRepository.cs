@@ -44,6 +44,10 @@ namespace ToDoListApplication.Repository
             }
 
             string text = File.ReadAllText(filePath);
+            if (string.IsNullOrEmpty(text))
+            {
+                return new List<ToDoTask>();
+            }
             List<ToDoTask>? tasks = JsonSerializer.Deserialize<List<ToDoTask>>(text, _options);
             if (tasks is null)
             {
@@ -72,11 +76,6 @@ namespace ToDoListApplication.Repository
         internal List<ToDoTask> GetByUserId(Guid userId)
         {
             return _tasks.Where(x => x.UserId == userId).ToList();
-        }
-
-        internal bool HasAny(Guid userId)
-        {
-            return _tasks.Where(x => x.Id == userId).Any();
         }
 
         internal void Update(ToDoTask task)

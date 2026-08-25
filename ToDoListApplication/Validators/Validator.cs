@@ -29,8 +29,13 @@ namespace ToDoListApplication.Validators
         /// </summary>
         /// <param name="arg"></param>
         /// <returns></returns>
-        internal static bool IsValidDescription(string arg)
+        internal static bool IsValidDescription(string name)
         {
+            if (name is null || name.Length < 10 || name.Length > 30)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -41,12 +46,32 @@ namespace ToDoListApplication.Validators
         /// <returns>A string containing the validation output; empty string if it is valid. </returns>
         public static bool IsValidDate(string date)
         {
-            if (!DateTime.TryParse(date, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validDate))
+            if (!DateTime.TryParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime validDate))
             {
                 return false;
             }
 
             if (validDate < DateTime.Today)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        internal static bool IsValidPassword(string password)
+        {
+            if (password is null || password.Length < 8)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        internal static bool IsValidName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return false;
             }

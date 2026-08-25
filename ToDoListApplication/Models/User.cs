@@ -5,6 +5,11 @@
     /// </summary>
     public class User
     {
+        public User()
+        {
+
+        }
+
         /// <summary>
         /// Initializes the User object
         /// </summary>

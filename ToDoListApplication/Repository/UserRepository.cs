@@ -50,7 +50,7 @@ namespace ToDoListApplication.Repository
             }
 
             string text = File.ReadAllText(filePath);
-            if (text is null)
+            if (string.IsNullOrEmpty(text))
             {
                 return new List<User>();
             }

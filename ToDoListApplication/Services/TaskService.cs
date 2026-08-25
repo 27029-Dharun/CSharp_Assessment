@@ -91,14 +91,11 @@ namespace ToDoListApplication.Services
             this._taskRepository.Delete(id);
         }
 
-        internal void GetDashboard()
+        internal List<ToDoTask> GetRecentTask(Guid userId)
         {
-            throw new NotImplementedException();
-        }
+            List<ToDoTask> tasks = this._taskRepository.GetByUserId(userId);
+            return tasks.OrderBy(x => x.Date).ToList();
 
-        internal bool GetTaskExist(Guid userId)
-        {
-            return this._taskRepository.HasAny(userId);
         }
 
         internal bool UpdateTask(ToDoTask task)
