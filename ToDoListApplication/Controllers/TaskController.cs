@@ -88,7 +88,7 @@ namespace ToDoListApplication.Controllers
         {
             string title = this._view.GetTitle("Enter the title of the task: ");
             string description = this._view.GetDescription("Enter the description: ");
-            DateTime date = this._view.GetTargetDate("Enter the date in format (dd/MM/yyyy): ");
+            DateTime date = this._view.GetTargetDate("Enter the target date in format (dd/MM/yyyy) till which we want to create the task: ");
             Recurrence recurrence = this._view.GetRecurrence("Enter the recurrence period: ");
 
             if (this._taskService.AddRecurrenceTask(userId, title, description, date, recurrence))
@@ -124,7 +124,7 @@ namespace ToDoListApplication.Controllers
             }
 
             this._view.PrintTaskTable(tasks);
-
+            this._view.PrintInfo("Can edit only the tasks field title, description and date. Can't edit the recurrence type");
             int index = this._view.GetIndex("Enter the index to edit: ");
             if (index >= 0 && index < tasks.Count)
             {
@@ -143,7 +143,7 @@ namespace ToDoListApplication.Controllers
                         break;
 
                     case 3:
-                        task.Date = this._view.GetTargetDate("Enter the date");
+                        task.Date = this._view.GetTargetDate("Enter the date: ");
                         break;
 
                     default:
