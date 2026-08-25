@@ -5,8 +5,15 @@ using ToDoListApplication.View;
 
 namespace ToDoListApplication
 {
+    /// <summary>
+    /// Program class for starting the operation.
+    /// </summary>
     internal class Program
     {
+        /// <summary>
+        /// Entry point of the application wires up the dependencies once.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             ConsoleView view = new ConsoleView();

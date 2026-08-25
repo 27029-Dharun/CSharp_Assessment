@@ -9,6 +9,9 @@
             _userController = controller;
         }
 
+        /// <summary>
+        /// Starts the applications
+        /// </summary>
         public void Start()
         {
             while (true)
