@@ -4,16 +4,29 @@ using ToDoListApplication.View;
 
 namespace ToDoListApplication.Controllers
 {
+    /// <summary>
+    /// Authenticates the user
+    /// </summary>
     internal class UserController
     {
         private readonly UserService _userService;
         private readonly ConsoleView _view;
+
+        /// <summary>
+        /// Initialize the controller instance 
+        /// </summary>
+        /// <param name="service">Instance of service</param>
+        /// <param name="view">Instance of view</param>
         public UserController(UserService service, ConsoleView view)
         {
             _userService = service ?? throw new ArgumentNullException();
             _view = view ?? throw new ArgumentNullException();
         }
 
+        /// <summary>
+        /// Authenticate the user and send the unique identifier of the Id
+        /// </summary>
+        /// <returns></returns>
         public Guid Authenticate()
         {
             while (true)

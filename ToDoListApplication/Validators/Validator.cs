@@ -2,11 +2,17 @@
 {
     internal class Validator
     {
-        internal static bool IsUniqueField(string username, List<string> userList)
+        /// <summary>
+        /// Checks if the field is unique.
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="fieldList"></param>
+        /// <returns></returns>
+        internal static bool IsUniqueField(string field, List<string> fieldList)
         {
-            foreach (string existingUser in userList)
+            foreach (string existing in fieldList)
             {
-                if (existingUser == username)
+                if (existing == field)
                 {
                     return false;
                 }

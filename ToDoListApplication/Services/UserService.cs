@@ -4,19 +4,32 @@ using ToDoListApplication.Validators;
 
 namespace ToDoListApplication.Services
 {
+    /// <summary>
+    /// user service
+    /// </summary>
     internal class UserService
     {
 
         private readonly UserRepository _userRepository;
 
+        /// <summary>
+        /// Initilize the object 
+        /// </summary>
+        /// <param name="repository">Instance of repository</param>
         public UserService(UserRepository repository)
         {
             _userRepository = repository;
         }
 
+        /// <summary>
+        /// Add the new user
+        /// </summary>
+        /// <param name="username">user name</param>
+        /// <param name="password">Password</param>
+        /// <returns>A boolean true if add; otherwise false</returns>
         public bool AddUser(string username, string password)
         {
-            List<string> userList = this._userRepository.GetByUserName();
+            List<string> userList = this._userRepository.GetUserName();
             if (!Validator.IsUniqueField(username, userList))
             {
                 return false;
@@ -27,6 +40,12 @@ namespace ToDoListApplication.Services
             return true;
         }
 
+        /// <summary>
+        /// Validates the login
+        /// </summary>
+        /// <param name="username">user name</param>
+        /// <param name="password">Password</param>
+        /// <returns>Guid of the user if logged in</returns>
         public Guid ValidateLogIn(string username, string password)
         {
             User? user = this._userRepository.GetByUserName(username);
